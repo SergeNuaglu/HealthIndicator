@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float _maxHealth;
-    [SerializeField] private HealthDisplay _healthDisplay;
 
     private float _currentHealth;
     private float _minHealth = 0;
+    private Animator _animator;
 
     public float MaxHealth => _maxHealth;
     public float CurrentHealth => _currentHealth;
@@ -20,25 +20,18 @@ public class Health : MonoBehaviour
     private void Start()
     {
         _currentHealth = _maxHealth;
+        _animator = GetComponent<Animator>();
     }
 
     public void TakeDamage()
     {
-        if (_currentHealth - _healthPerClick >= _minHealth)
-            _currentHealth -= _healthPerClick;
-        else
-            _currentHealth = _minHealth;
-
-        _healthDisplay.StartChangeHealth(true, _currentHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth - _healthPerClick, _minHealth, _maxHealth);
+        _animator.SetTrigger(AnimatorParams.DamageTrigger);
     }
 
     public void AddHealth()
     {
-        if (_currentHealth + _healthPerClick <= _maxHealth)
-            _currentHealth += _healthPerClick;
-        else
-            _currentHealth = _maxHealth;
-
-        _healthDisplay.StartChangeHealth(false, _currentHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth + _healthPerClick, _minHealth, _maxHealth);
+        _animator.SetTrigger(AnimatorParams.HealthTrigger);
     }
 }

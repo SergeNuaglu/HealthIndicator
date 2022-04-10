@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class AnimatorParams
 {
-    public const string _damageTrigger = "TakeDamage";
-    public const string _healthTrigger = "AddHealth";
-    public const string _healthParameter = "Health";
+    public const string DamageTrigger = "TakeDamage";
+    public const string HealthTrigger = "AddHealth";
+    public const string HealthParameter = "Health";
 }
