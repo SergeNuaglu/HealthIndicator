@@ -15,6 +15,7 @@ public class HealthDisplay : MonoBehaviour
 
     private void Start()
     {
+        Health._changedHealth += OnChangedHealth;
         _animator = GetComponent<Animator>();
         _animator.SetFloat(AnimatorParams.HealthParameter, _healthBar.value);
         _healthBar.value = _healthBar.maxValue;
@@ -27,7 +28,7 @@ public class HealthDisplay : MonoBehaviour
         _animator.SetFloat(AnimatorParams.HealthParameter, _currentHealth);
     }
 
-    public void OnHealthChanged(float currentHealth)
+    public void OnChangedHealth(float currentHealth)
     {
         _currentHealth = currentHealth;
     }
