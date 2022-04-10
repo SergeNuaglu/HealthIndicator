@@ -1769,8 +1769,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2091474138}
-        m_TargetAssemblyTypeName: HealthDisplay, Assembly-CSharp
+      - m_Target: {fileID: 1857241720}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: AddHealth
         m_Mode: 1
         m_Arguments:
@@ -2173,7 +2173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3899f15a0724563b7a234a23272a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _totalHealth: 100
+  _maxHealth: 100
+  _healthDisplay: {fileID: 2091474138}
 --- !u!1001 &1902982915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2496,8 +2497,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2091474138}
-        m_TargetAssemblyTypeName: HealthDisplay, Assembly-CSharp
+      - m_Target: {fileID: 1857241720}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: TakeDamage
         m_Mode: 1
         m_Arguments:
