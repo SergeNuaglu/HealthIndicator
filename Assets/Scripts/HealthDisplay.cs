@@ -5,24 +5,21 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 
-public class PlayerHealthChanger : MonoBehaviour
+public class HealthDisplay : MonoBehaviour
 {
+    [SerializeField] private Health _health;
     [SerializeField] private Slider _healthBar;
     [SerializeField] private float _changeRate;
-    [SerializeField] private float _totalHealth;
 
     private float _healthPerClick = 10f;
     private float _targetHealth;
     private Coroutine _changeHealthJob;
     private Animator _animator;
-    private const string _damageTrigger = "TakeDamage";
-    private const string _healthTrigger = "AddHealth";
-    private const string _healthParameter = "Health";
 
     public void TakeDamage()
     {
-        if (_healthBar.value - _healthPerClick >= _healthBar.minValue)
-            _targetHealth = _healthBar.value - _healthPerClick;
+        if (_health.CurrentHealth - _healthPerClick >= _healthBar.minValue)
+            _targetHealth = _health.CurrentHealth - _healthPerClick;
         else
             _targetHealth = _healthBar.minValue;
 
@@ -31,8 +28,8 @@ public class PlayerHealthChanger : MonoBehaviour
 
     public void AddHealth()
     {
-        if (_healthBar.value + _healthPerClick <= _healthBar.maxValue)
-            _targetHealth = _healthBar.value + _healthPerClick;
+        if (_health.CurrentHealth + _healthPerClick <= _healthBar.maxValue)
+            _targetHealth = _health.CurrentHealth + _healthPerClick;
         else
             _targetHealth = _healthBar.maxValue;
 
@@ -42,32 +39,33 @@ public class PlayerHealthChanger : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _animator.SetFloat(_healthParameter, _totalHealth);
-        _healthBar.maxValue = _totalHealth;
+        _animator.SetFloat(AnimatorParams._healthParameter, _health.CurrentHealth);
+        _healthBar.maxValue = _health.TotalHealth;
         _healthBar.value = _healthBar.maxValue;
     }
 
     private IEnumerator ChangeHealth(float targetHealth)
     {
-        while (_healthBar.value != targetHealth)
+        while (_health.CurrentHealth != targetHealth)
         {
             _healthBar.value = Mathf.MoveTowards(_healthBar.value, targetHealth, _changeRate * Time.deltaTime);
-            _animator.SetFloat(_healthParameter, _healthBar.value);
+            _health.SetCurrentHealth(_healthBar.value);
+            _animator.SetFloat(AnimatorParams._healthParameter, _healthBar.value);
             yield return null;
         }
     }
 
     private void StartChangeHealth(bool isDamage)
     {
-        if (_healthBar.value != _targetHealth)
+        if (_health.CurrentHealth != _targetHealth)
         {
             StopChangeHealth();
             _changeHealthJob = StartCoroutine(ChangeHealth(_targetHealth));
 
             if (isDamage)
-                _animator.SetTrigger(_damageTrigger);
+                _animator.SetTrigger(AnimatorParams._damageTrigger);
             else
-                _animator.SetTrigger(_healthTrigger);
+                _animator.SetTrigger(AnimatorParams._healthTrigger);
         }
     }
 
