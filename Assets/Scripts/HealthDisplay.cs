@@ -7,25 +7,28 @@ using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
 {
-    [SerializeField] private Health _health;
     [SerializeField] private Slider _healthBar;
     [SerializeField] private float _changeRate;
 
     private Animator _animator;
+    private float _currentHealth;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _animator.SetFloat(AnimatorParams.HealthParameter, _healthBar.value);
-        _healthBar.maxValue = _health.MaxHealth;
         _healthBar.value = _healthBar.maxValue;
+        _currentHealth = _healthBar.maxValue;
     }
 
     private void Update()
     {
-        if (_healthBar.value != _health.CurrentHealth)
-        _healthBar.value = Mathf.MoveTowards(_healthBar.value, _health.CurrentHealth, _changeRate * Time.deltaTime);
+        _healthBar.value = Mathf.MoveTowards(_healthBar.value, _currentHealth, _changeRate * Time.deltaTime);
+        _animator.SetFloat(AnimatorParams.HealthParameter, _currentHealth);
+    }
 
-        _animator.SetFloat(AnimatorParams.HealthParameter, _healthBar.value);
+    public void OnHealthChanged(float currentHealth)
+    {
+        _currentHealth = currentHealth;
     }
 }

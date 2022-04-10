@@ -1111,9 +1111,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 574994270}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2174,7 +2174,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _healthDisplay: {fileID: 2091474138}
+  _changeHealthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2091474138}
+        m_TargetAssemblyTypeName: HealthDisplay, Assembly-CSharp
+        m_MethodName: OnHealthChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1902982915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2663,7 +2677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afea2e8ae507b4315a63d3b3dc04e814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 1857241720}
   _healthBar: {fileID: 999499274}
   _changeRate: 8
 --- !u!95 &2091474139
